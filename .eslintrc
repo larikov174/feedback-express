@@ -11,20 +11,6 @@
       "code": 100
     }
   ],
-  "jsx-a11y/control-has-associated-label": ["off", {
-    "labelComponents": [],
-    "labelAttributes": [],
-    "controlComponents": [],
-    "assert": "both",
-    "depth": 25
-  }],
-  "jsx-a11y/label-has-associated-control": ["error", {
-    "components": [],
-    "required": {
-      "some": ["nesting", "id"]
-    },
-    "allowChildren": false
-  }],
   "prefer-promise-reject-errors": ["off"],
   "no-return-assign": ["off"],
   "no-underscore-dangle": ["error", {
@@ -33,6 +19,6 @@
     "allowFunctionParams": true,
     "allow": ["_id"]
    }],
-   "no-console": ["error", { "allow": ["warn", "error"] }]
+   "no-console": ["error", { "allow": ["log","warn", "error"] }]
 }
 }
