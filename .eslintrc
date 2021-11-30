@@ -1,0 +1,38 @@
+{
+"extends": ["airbnb-base", "prettier"],
+"env": {
+  "browser": true,
+  "jest": true
+},
+"rules": {
+  "max-len": [
+    "error",
+    {
+      "code": 100
+    }
+  ],
+  "jsx-a11y/control-has-associated-label": ["off", {
+    "labelComponents": [],
+    "labelAttributes": [],
+    "controlComponents": [],
+    "assert": "both",
+    "depth": 25
+  }],
+  "jsx-a11y/label-has-associated-control": ["error", {
+    "components": [],
+    "required": {
+      "some": ["nesting", "id"]
+    },
+    "allowChildren": false
+  }],
+  "prefer-promise-reject-errors": ["off"],
+  "no-return-assign": ["off"],
+  "no-underscore-dangle": ["error", {
+    "allowAfterThis": true,
+    "allowAfterThisConstructor": true,
+    "allowFunctionParams": true,
+    "allow": ["_id"]
+   }],
+   "no-console": ["error", { "allow": ["warn", "error"] }]
+}
+}

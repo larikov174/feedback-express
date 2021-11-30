@@ -1,0 +1,30 @@
+{
+  "name": "backend-sprint13",
+  "version": "1.0.0",
+  "description": "backand project",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larikov174/backend-sprint13.git"
+  },
+  "keywords": [
+    "backend",
+    "mesto"
+  ],
+  "author": "Andrey Larikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larikov174/backend-sprint13/issues"
+  },
+  "homepage": "https://github.com/larikov174/backend-sprint13#readme",
+  "devDependencies": {
+    "eslint": "^8.3.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "prettier": "^2.5.0",
+    "pretty-quick": "^3.1.2"
+  }
+}
