@@ -1,24 +1,27 @@
 {
-"extends": ["airbnb-base", "prettier"],
-"env": {
-  "browser": true,
-  "jest": true
-},
-"rules": {
-  "max-len": [
-    "error",
-    {
-      "code": 100
-    }
-  ],
-  "prefer-promise-reject-errors": ["off"],
-  "no-return-assign": ["off"],
-  "no-underscore-dangle": ["error", {
-    "allowAfterThis": true,
-    "allowAfterThisConstructor": true,
-    "allowFunctionParams": true,
-    "allow": ["_id"]
-   }],
-   "no-console": ["error", { "allow": ["log","warn", "error"] }]
-}
+  "extends": ["airbnb-base", "prettier"],
+  "env": {
+    "browser": true,
+    "jest": true
+  },
+  "rules": {
+    "max-len": [
+      "error",
+      {
+        "code": 100
+      }
+    ],
+    "prefer-promise-reject-errors": ["off"],
+    "no-return-assign": ["off"],
+    "no-underscore-dangle": [
+      "error",
+      {
+        "allowAfterThis": true,
+        "allowAfterThisConstructor": true,
+        "allowFunctionParams": true,
+        "allow": ["_id"]
+      }
+    ],
+    "no-console": ["error", { "allow": ["log", "warn", "error"] }]
+  }
 }
