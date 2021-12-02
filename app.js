@@ -29,9 +29,8 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/", require("./routers/users"));
+app.use("/users", require("./routes/users"));
 
 app.listen(PORT, (error) => {
-  // eslint-disable-next-line
   error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
