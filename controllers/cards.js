@@ -12,7 +12,7 @@ module.exports.getCards = (req, res) => {
     )
     .catch(() =>
       res.status(500).send({
-        message: "Произошла ошибка на сервере. Карточка в базе не найден.",
+        message: "Произошла ошибка на сервере. Сервер не отвечает.",
       })
     );
 };
@@ -28,8 +28,8 @@ module.exports.createCard = (req, res) => {
       })
     )
     .catch(() =>
-      res.status(500).send({
-        message: "Произошла ошибка на сервере. Карточка в базе не найдена.",
+      res.status(400).send({
+        message: "Переданы некорректные данные.",
       })
     );
 };
@@ -39,7 +39,7 @@ module.exports.deleteCard = (req, res) => {
     .then(() => res.status(200).send({ message: "Карточка удалена успешно!" }))
     .catch(() =>
       res.status(500).send({
-        message: "Произошла ошибка на сервере. Карточка в базе не найдена.",
+        message: "Произошла ошибка на сервере. Сервер не отвечает.",
       })
     );
 };
@@ -49,6 +49,10 @@ module.exports.likeCard = (req, res) =>
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
     { new: true }
+  ).catch(() =>
+    res.status(500).send({
+      message: "Произошла ошибка на сервере. Сервер не отвечает.",
+    })
   );
 
 module.exports.dislikeCard = (req, res) =>
@@ -56,4 +60,8 @@ module.exports.dislikeCard = (req, res) =>
     req.params.cardId,
     { $pull: { likes: req.user._id } },
     { new: true }
+  ).catch(() =>
+    res.status(500).send({
+      message: "Произошла ошибка на сервере. Сервер не отвечает.",
+    })
   );
