@@ -4,7 +4,8 @@
   "description": "backand project",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "start": "node server.js"
   },
   "repository": {
     "type": "git",
