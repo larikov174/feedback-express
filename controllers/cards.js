@@ -28,8 +28,6 @@ module.exports.deleteCard = (req, res) => {
         .populate(["owner", "likes"])
         .then((deletedCard) => res.status(200).send(deletedCard))
         .catch((err) => {
-          console.log(err.name);
-          res.status(404).send({ message: "Карточка по указанному _id не найдена" });
           if (err.name === "CastError") {
             res.status(404).send({ message: "Карточка по указанному _id не найдена" });
           } else {
