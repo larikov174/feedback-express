@@ -28,16 +28,20 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findById(req.params.id).then((card) => {
-    if (card.owner.toString() === req.user._id.toString()) {
-      Card.findByIdAndDelete(req.user._id)
+  Card.findById(req.params.cardId).then((card) => {
+    if (card.owner.valueOf() === req.user._id) {
+      Card.findByIdAndDelete(req.params.cardId)
         .populate(["owner", "likes"])
         .then((deletedCard) => res.status(200).send(deletedCard))
         .catch(() =>
-          res.status(500).send({
-            message: "Произошла ошибка на сервере. Сервер не отвечает.",
+          res.status(404).send({
+            message: "Произошла ошибка. Карточка с указанным id не найдена.",
           })
         );
+    } else {
+      res.status(403).send({
+        message: "У вас нет прав на это действие.",
+      });
     }
   });
 };

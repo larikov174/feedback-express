@@ -1,5 +1,3 @@
-// const { EntryDataError } = require("../utils/EntryDataError");
-
 const User = require("../models/user");
 
 module.exports.getUsers = (req, res) => {
