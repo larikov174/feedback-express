@@ -5,5 +5,4 @@ class CustomError extends Error {
     this.name = this.constructor.name;
   }
 }
-
 module.exports = CustomError;
