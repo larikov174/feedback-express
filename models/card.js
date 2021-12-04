@@ -31,7 +31,7 @@ const cardSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 
 module.exports = mongoose.model("card", cardSchema);
