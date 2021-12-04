@@ -22,20 +22,22 @@ module.exports.createCard = (req, res) => {
 };
 
 module.exports.deleteCard = (req, res) => {
-  Card.findById(req.params.cardId).then((card) => {
-    if (card.owner.valueOf() === req.user._id) {
-      Card.findByIdAndDelete(req.params.cardId)
-        .populate(["owner", "likes"])
-        .then((deletedCard) => res.status(200).send(deletedCard))
-        .catch((err) => {
-          if (err.name === "CastError") {
-            res.status(404).send({ message: "Карточка по указанному _id не найдена" });
-          } else {
-            res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
-          }
-        });
-    }
-  });
+  Card.findById(req.params.cardId)
+    .orFail(new Error())
+    .then((card) => {
+      if (card.owner.valueOf() === req.user._id) {
+        Card.findByIdAndDelete(req.params.cardId)
+          .populate(["owner", "likes"])
+          .then((deletedCard) => res.status(200).send(deletedCard));
+      }
+    })
+    .catch((err) => {
+      if (err instanceof Error) {
+        res.status(404).send({ message: "Карточка по указанному _id не найдена" });
+      } else {
+        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      }
+    });
 };
 
 module.exports.likeCard = (req, res) => Card.findByIdAndUpdate(
