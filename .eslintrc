@@ -1,5 +1,5 @@
 {
-  "extends": ["airbnb-base", "prettier"],
+  "extends": ["airbnb-base"],
   "env": {
     "browser": true,
     "jest": true
@@ -11,8 +11,6 @@
         "code": 100
       }
     ],
-    "prefer-promise-reject-errors": ["off"],
-    "no-return-assign": ["off"],
     "no-underscore-dangle": [
       "error",
       {
