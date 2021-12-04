@@ -32,6 +32,6 @@ app.use("/users", require("./routes/users"));
 app.use("/cards", require("./routes/cards"));
 
 app.listen(PORT, (error) => {
-  // eslint-disable-next-line
+// eslint-disable-next-line
   error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
