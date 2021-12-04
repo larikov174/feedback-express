@@ -5,7 +5,7 @@ module.exports.getCards = (req, res) => {
     .populate(["owner", "likes"])
     .then((Cards) => res.status(200).send(Cards.sort((a, b) => b.createdAt - a.createdAt)))
     .catch(() => res.status(500).send({
-      message: "Произошла ошибка на сервере. Сервер не отвечает.",
+      message: "Ошибка. Сервер не отвечает.",
     }));
 };
 
@@ -35,7 +35,7 @@ module.exports.deleteCard = (req, res) => {
       if (err instanceof Error) {
         res.status(404).send({ message: "Карточка по указанному _id не найдена" });
       } else {
-        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+        res.status(500).send({ message: "Ошибка. Сервер не отвечает." });
       }
     });
 };
@@ -45,12 +45,13 @@ module.exports.likeCard = (req, res) => Card.findByIdAndUpdate(
   { $addToSet: { likes: req.user._id } },
   { new: true },
 )
+  .orFail(new Error())
   .then((card) => res.status(200).send(card))
   .catch((err) => {
-    if (err.name === "CastError") {
+    if (err instanceof Error) {
       res.status(404).send({ message: "Карточка по указанному _id не найдена" });
     } else {
-      res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      res.status(500).send({ message: "Ошибка. Сервер не отвечает." });
     }
   });
 
@@ -59,11 +60,12 @@ module.exports.dislikeCard = (req, res) => Card.findByIdAndUpdate(
   { $pull: { likes: req.user._id } },
   { new: true },
 )
+  .orFail(new Error())
   .then((card) => res.status(200).send(card))
   .catch((err) => {
-    if (err.name === "CastError") {
+    if (err instanceof Error) {
       res.status(404).send({ message: "Карточка по указанному _id не найдена" });
     } else {
-      res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      res.status(500).send({ message: "Ошибка. Сервер не отвечает." });
     }
   });

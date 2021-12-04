@@ -1,7 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
-const handleErrors = require("./middlewares/handleErrors");
 
 const { PORT = 3000 } = process.env;
 const db = "mongodb://localhost:27017/mestodb";
@@ -32,8 +31,6 @@ app.use("/cards", require("./routes/cards"));
 app.use((req, res) => {
   res.status(404).send({ message: "Запрашиваемый ресурс не найден" });
 });
-
-app.use(handleErrors);
 
 app.listen(PORT, (error) => {
   // eslint-disable-next-line
