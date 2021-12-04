@@ -27,13 +27,15 @@ module.exports.deleteCard = (req, res) => {
       Card.findByIdAndDelete(req.params.cardId)
         .populate(["owner", "likes"])
         .then((deletedCard) => res.status(200).send(deletedCard))
-        .catch(() => res.status(404).send({
-          message: "Произошла ошибка. Карточка с указанным id не найдена.",
-        }));
-    } else {
-      res.status(403).send({
-        message: "У вас нет прав на это действие.",
-      });
+        .catch((err) => {
+          console.log(err.name);
+          res.status(404).send({ message: "Карточка по указанному _id не найдена" });
+          if (err.name === "CastError") {
+            res.status(404).send({ message: "Карточка по указанному _id не найдена" });
+          } else {
+            res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+          }
+        });
     }
   });
 };
@@ -44,9 +46,13 @@ module.exports.likeCard = (req, res) => Card.findByIdAndUpdate(
   { new: true },
 )
   .then((card) => res.status(200).send(card))
-  .catch(() => res.status(500).send({
-    message: "Произошла ошибка на сервере. Сервер не отвечает.",
-  }));
+  .catch((err) => {
+    if (err.name === "CastError") {
+      res.status(404).send({ message: "Карточка по указанному _id не найдена" });
+    } else {
+      res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+    }
+  });
 
 module.exports.dislikeCard = (req, res) => Card.findByIdAndUpdate(
   req.params.cardId,
@@ -54,6 +60,10 @@ module.exports.dislikeCard = (req, res) => Card.findByIdAndUpdate(
   { new: true },
 )
   .then((card) => res.status(200).send(card))
-  .catch(() => res.status(500).send({
-    message: "Произошла ошибка на сервере. Сервер не отвечает.",
-  }));
+  .catch((err) => {
+    if (err.name === "CastError") {
+      res.status(404).send({ message: "Карточка по указанному _id не найдена" });
+    } else {
+      res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+    }
+  });

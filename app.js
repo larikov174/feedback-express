@@ -3,10 +3,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 
 const { PORT = 3000 } = process.env;
-// использую не локальную базу т.к. веду разработку с нескольких компьютеров
-// просто не удобно было каждый раз настраивать одно и тоже.
-// eslint-disable-next-line max-len
-const db = "mongodb+srv://larikov174:2694432@cluster0.mwtfk.mongodb.net/mestodb?retryWrites=true&w=majority";
+const db = "mongodb://localhost:27017/mestodb";
 
 mongoose
   .connect(db, {
@@ -23,7 +20,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   req.user = {
-    _id: "61aaedc571f3154d172662a7",
+    _id: "61ab8f818476b415c46e9ab4",
   };
   next();
 });

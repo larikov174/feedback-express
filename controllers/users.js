@@ -13,9 +13,13 @@ module.exports.getUsers = (req, res) => {
 module.exports.getUserById = (req, res) => {
   User.findById(req.params.userId)
     .then((user) => res.status(200).send(user))
-    .catch(() => res.status(404).send({
-      message: "Запрашиваемый пользователь не найден.",
-    }));
+    .catch((err) => {
+      if (err.name === "CastError") {
+        res.status(404).send({ message: "Пользователь по указанному _id не найден" });
+      } else {
+        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      }
+    });
 };
 
 module.exports.createUser = (req, res) => {
@@ -26,9 +30,13 @@ module.exports.createUser = (req, res) => {
       about: user.about,
       avatar: user.avatar,
     }))
-    .catch(() => res.status(400).send({
-      message: "Переданы некорректные данные.",
-    }));
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        res.status(400).send({ message: "Переданы некорректные данные." });
+      } else {
+        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      }
+    });
 };
 
 module.exports.updateUserData = (req, res) => {
@@ -38,9 +46,13 @@ module.exports.updateUserData = (req, res) => {
       name: user.name,
       about: user.about,
     }))
-    .catch(() => res.status(400).send({
-      message: "Переданы некорректные данные.",
-    }));
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        res.status(400).send({ message: "Переданы некорректные данные." });
+      } else {
+        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      }
+    });
 };
 
 module.exports.updateUserAvatar = (req, res) => {
@@ -49,7 +61,11 @@ module.exports.updateUserAvatar = (req, res) => {
     .then((user) => res.status(200).send({
       avatar: user.avatar,
     }))
-    .catch(() => res.status(400).send({
-      message: "Переданы некорректные данные.",
-    }));
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        res.status(400).send({ message: "Переданы некорректные данные." });
+      } else {
+        res.status(500).send({ message: "Произошла ошибка на сервере. Сервер не отвечает." });
+      }
+    });
 };
