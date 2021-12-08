@@ -2,7 +2,7 @@ const Post = require('../models/post');
 
 module.exports.getPosts = (req, res) => {
   Post.find({})
-    .populate(['owner', 'comments', 'replies'])
+    .populate(['owner', 'comments'])
     .then((posts) => res.status(200).send(posts.sort((a, b) => b.createdAt - a.createdAt)))
     .catch(() => res.status(500).send({
       message: 'Ошибка. Сервер не отвечает.',
@@ -10,8 +10,12 @@ module.exports.getPosts = (req, res) => {
 };
 
 module.exports.createPost = (req, res) => {
-  const { title, category, status, description } = req.body;
-  Post.create({ title, category, status, description, owner: req.user._id }).then((post) => {
+  const {
+    title, category, status, description,
+  } = req.body;
+  Post.create({
+    title, category, status, description, owner: req.user._id,
+  }).then((post) => {
     Post.findById(post._id)
       .populate(['owner'])
       .then((newCard) => res.status(200).send(newCard));

@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema(
   {
@@ -32,21 +32,50 @@ const postSchema = new mongoose.Schema(
     },
     owner: {
       type: mongoose.Types.ObjectId,
-      ref: "user",
+      ref: 'user',
       required: true,
     },
     comments: [
       {
-        type: mongoose.Types.ObjectId,
-        ref: "post",
-        default: [],
         replies: [
           {
             type: mongoose.Types.ObjectId,
-            ref: "post.comments",
+            ref: 'post',
             default: [],
+            content: {
+              type: String,
+              minlength: 2,
+              maxlength: 200,
+              required: true,
+            },
+            replyingTo: {
+              type: mongoose.Types.ObjectId,
+              ref: 'user',
+              required: true,
+            },
+            owner: {
+              type: mongoose.Types.ObjectId,
+              ref: 'user',
+              required: true,
+            },
           },
         ],
+        // content: {
+        //   type: String,
+        //   minlength: 2,
+        //   maxlength: 200,
+        //   required: true,
+        // },
+        // referTo: {
+        //   type: mongoose.Types.ObjectId,
+        //   ref: 'user',
+        //   required: true,
+        // },
+        // owner: {
+        //   type: mongoose.Types.ObjectId,
+        //   ref: 'user',
+        //   required: true,
+        // },
       },
     ],
     createdAt: {
@@ -55,7 +84,7 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 
-module.exports = mongoose.model("post", postSchema);
+module.exports = mongoose.model('post', postSchema);

@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const { PORT = 3000 } = process.env;
-const db = 'mongodb+srv://&&&@cluster0.mwtfk.mongodb.net/fbdb';
+const db = 'mongodb+srv://larikov174:2694432@cluster0.mwtfk.mongodb.net/fbdb';
 
 mongoose
   .connect(db, {
@@ -20,13 +20,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
   req.user = {
-    _id: '61ab8f818476b415c46e9ab4',
+    _id: '61b10988f80a6a283ac08d52',
   };
   next();
 });
 
 app.use('/users', require('./routes/users'));
-app.use('/cards', require('./routes/cards'));
 app.use('/posts', require('./routes/posts'));
 
 app.use((req, res) => {
