@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const { PORT = 3000 } = process.env;
-const db = 'mongodb+srv://larikov174:2694432@cluster0.mwtfk.mongodb.net/fbdb';
+const db = 'mongodb+srv://&&&@cluster0.mwtfk.mongodb.net/fbdb';
 
 mongoose
   .connect(db, {
