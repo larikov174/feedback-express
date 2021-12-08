@@ -1,4 +1,4 @@
-# Проект Mesto фронтенд + бэкенд
+# Bakcend for feedback-react-redux-app
 
 ## Директории
 

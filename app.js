@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 
 const { PORT = 3000 } = process.env;
-const db = 'mongodb://localhost:27017/mestodb';
+const db = 'mongodb+srv://larikov174:2694432@cluster0.mwtfk.mongodb.net/fbdb';
 
 mongoose
   .connect(db, {
@@ -27,6 +27,7 @@ app.use((req, res, next) => {
 
 app.use('/users', require('./routes/users'));
 app.use('/cards', require('./routes/cards'));
+app.use('/posts', require('./routes/posts'));
 
 app.use((req, res) => {
   res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });

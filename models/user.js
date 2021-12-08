@@ -8,13 +8,13 @@ const userSchema = new mongoose.Schema(
       maxlength: 30,
       required: true,
     },
-    about: {
+    username: {
       type: String,
       minlength: 2,
       maxlength: 30,
       required: true,
     },
-    avatar: {
+    image: {
       type: String,
       lowercase: true,
       required: true,
