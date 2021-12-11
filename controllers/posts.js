@@ -11,14 +11,14 @@ module.exports.getPosts = (req, res) => {
 
 module.exports.createPost = (req, res) => {
   const {
-    title, category, status, description,
+    title, category, description, status,
   } = req.body;
   Post.create({
-    title, category, status, description, owner: req.user._id,
+    title, category, description, status, owner: req.user._id,
   }).then((post) => {
     Post.findById(post._id)
       .populate(['owner'])
-      .then((newCard) => res.status(200).send(newCard));
+      .then((newPost) => res.status(200).send(newPost));
   })
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -29,14 +29,39 @@ module.exports.createPost = (req, res) => {
     });
 };
 
-module.exports.deleteCard = (req, res) => {
+module.exports.updatePost = (req, res) => {
+  const {
+    title, category, description, status,
+  } = req.body;
+  Post.findByIdAndUpdate(req.params.postId, {
+    title, category, description, status,
+  }, { new: true, runValidators: true })
+    .orFail(new Error('Not Found'))
+    .then((post) => res.status(200).send({
+      title: post.title,
+      category: post.category,
+      description: post.description,
+      status: post.status,
+    }))
+    .catch((err) => {
+      if (err.message === 'Not Found') {
+        res.status(404).send({ message: 'Пользователь по указанному _id не найден' });
+      } if (err.name === 'ValidationError') {
+        res.status(400).send({ message: 'Переданы некорректные данные.' });
+      } else {
+        res.status(500).send({ message: 'Ошибка. Сервер не отвечает.' });
+      }
+    });
+};
+
+module.exports.deletePost = (req, res) => {
   Post.findById(req.params.postId)
     .orFail(new Error('Not Found'))
     .then((post) => {
       if (post.owner.equals(req.user._id)) {
         Post.findByIdAndDelete(req.params.postId)
-          .populate(['owner', 'comments', 'replies'])
-          .then((deletedCard) => res.status(200).send(deletedCard));
+          .populate(['owner', 'comments'])
+          .then((deletedPost) => res.status(200).send(deletedPost));
       } else {
         res.status(403).send({ message: 'У вас нет прав на это действие' });
       }

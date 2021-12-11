@@ -1,39 +1,41 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const postSchema = new mongoose.Schema(
   {
     title: {
       type: String,
       minlength: 2,
-      maxlength: 200,
+      maxlength: 300,
       required: true,
     },
     category: {
       type: String,
       minlength: 2,
-      maxlength: 20,
-      required: true,
-    },
-    upvotes: {
-      type: Number,
+      maxlength: 50,
       required: true,
     },
     status: {
       type: String,
       minlength: 2,
-      maxlength: 20,
+      maxlength: 50,
       required: true,
     },
+    upvotes: [
+      {
+        type: mongoose.Types.ObjectId,
+        ref: 'user',
+        default: [],
+      },
+    ],
     description: {
       type: String,
       minlength: 2,
-      maxlength: 200,
+      maxlength: 400,
       required: true,
     },
     owner: {
       type: mongoose.Types.ObjectId,
-      ref: "user",
-      required: true,
+      ref: 'user',
     },
     comments: [
       {
@@ -46,7 +48,7 @@ const postSchema = new mongoose.Schema(
       required: true,
     },
   },
-  { versionKey: false }
+  { versionKey: false },
 );
 
-module.exports = mongoose.model("post", postSchema);
+module.exports = mongoose.model('post', postSchema);
