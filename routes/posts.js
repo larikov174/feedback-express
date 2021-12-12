@@ -4,13 +4,15 @@ const {
   createPost,
   updatePost,
   deletePost,
-  // getPostId,
+  likePost,
+  dislikePost,
 } = require('../controllers/posts');
 
 router.get('/', getPosts);
 router.post('/', createPost);
 router.patch('/:postId', updatePost);
 router.delete('/:postId', deletePost);
-// router.get('/:postId', getPostId);
+router.put('/:postId/upvotes', likePost);
+router.delete('/:postId/upvotes', dislikePost);
 
 module.exports = router;
